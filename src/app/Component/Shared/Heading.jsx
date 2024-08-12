@@ -1,4 +1,7 @@
-const Heading = ({ tAlign, dAlign, hAlign, btntext,title,description,heading }) => {
+const Heading = ({ tAlign, dAlign, hAlign, btntext,content }) => {
+
+  const {title,heading,description} = content || {}
+
   return (
     <div>
       <div className="space-y-2">
