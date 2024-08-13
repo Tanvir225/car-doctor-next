@@ -1,33 +1,36 @@
-'use client'
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { signIn } from "next-auth/react";
 import { FaFacebook, FaGoogle } from "react-icons/fa";
 
 const loginPage = () => {
-
-  const handleSubmit = async(event)=>{
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const loginUser = {
-      email: event.target.email.value,
-      password: event.target.password.value
-    }
+    const email = event.target.email.value;
+    const password = event.target.password.value;
 
-    console.log(loginUser);
-  }
+    const response = signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
+    console.log(response);
+  };
 
   return (
     <div className="flex justify-center items-center">
       <div className="grid grid-cols-1 lg:grid-cols-2 justify-center items-center gap-5">
         <div>
           <Image
-            width={450}
-            height={400}
+            width={500}
+            height={300}
             src={"/assets/images/login/login.svg"}
             alt="login"
           ></Image>
         </div>
-        <div className="">
+        <div className="border border-gray-100 p-10  rounded-lg">
           <form className="space-y-5" onSubmit={handleSubmit}>
             <h1 className="text-3xl font-bold">Login</h1>
             <input
@@ -47,9 +50,18 @@ const loginPage = () => {
             </button>
           </form>
           <div className="text-center space-y-3 my-5 space-x-5">
-            <p className="btn btn-primary"><FaFacebook ></FaFacebook></p>
-            <p className="btn btn-primary"><FaGoogle ></FaGoogle></p>
-            <p>dont have any account <Link href={"/signup"} className="text-primary font-bold">signup</Link></p>
+            <p className="btn btn-primary">
+              <FaFacebook></FaFacebook>
+            </p>
+            <p className="btn btn-primary">
+              <FaGoogle></FaGoogle>
+            </p>
+            <p>
+              dont have any account{" "}
+              <Link href={"/signup"} className="text-primary font-bold">
+                signup
+              </Link>
+            </p>
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ import React from "react";
 import toast from "react-hot-toast";
 
 const signupPage = () => {
-  
+
   const handleSubmit =async(event)=>{
     event.preventDefault();
     const newUser = {
@@ -40,7 +40,7 @@ const signupPage = () => {
             alt="signup"
           ></Image>
         </div>
-        <div className="">
+        <div className="border border-gray-100 p-10  rounded-lg">
           <form className="space-y-5" onSubmit={handleSubmit}>
             <h1 className="text-3xl font-bold">Sign Up</h1>
             <input
