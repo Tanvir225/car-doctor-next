@@ -1,6 +1,7 @@
 import Heading from "../Shared/Heading";
-import {services} from "../../lib/services"
+import {services} from "@/lib/services"
 import ServiceCard from "../Card/ServiceCard";
+import LinkButton from "../Shared/LinkButton";
 
 const Service = () => {
   const content = {
@@ -19,12 +20,16 @@ const Service = () => {
         dAlign={"center"}
         content={content}
       ></Heading>
-      <div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 justify-center items-center gap-5">
         {
-          services.map(service=> (
+          services.map((service)=> (
             <ServiceCard key={service._id} service={service}></ServiceCard>
           ))
         }
+      </div>
+
+      <div className="text-center">
+        <LinkButton text="View All" link="/services"></LinkButton>
       </div>
     </div>
   );

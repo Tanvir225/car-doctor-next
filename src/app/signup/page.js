@@ -2,17 +2,31 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import toast from "react-hot-toast";
 
 const signupPage = () => {
-
+  
   const handleSubmit =async(event)=>{
     event.preventDefault();
     const newUser = {
       name : event.target.name.value,
+      image : event.target.image.value,
       email : event.target.email.value,
       password : event.target.password.value
     }
-    console.log(newUser);
+    // console.log(newUser);
+
+    const response = await fetch('http://localhost:3000/signup/api',{
+      method : 'POST',
+      headers : {
+        'Content-Type' : 'application/json',
+      },
+      body:JSON.stringify(newUser)
+    })
+    if (response.status===200) {
+      event.target.reset()
+      toast.success("user created")
+    }
   }
 
   return (
@@ -33,6 +47,12 @@ const signupPage = () => {
               type="text"
               name="name"
               placeholder="Enter your name"
+              className="input input-bordered input-primary w-full max-w-lg"
+            />
+            <input
+              type="text"
+              name="image"
+              placeholder="Enter your image url"
               className="input input-bordered input-primary w-full max-w-lg"
             />
             <input
