@@ -1,27 +1,13 @@
-
+"use client";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import {FaShoppingBag} from "react-icons/fa";
+import toast from "react-hot-toast";
+import { FaShoppingBag } from "react-icons/fa";
 
 const Navbar = () => {
-  const links = [
-    {
-      name: "Home",
-      link: "/",
-    },
-    {
-      name: "About",
-      link: "/about",
-    },
-    {
-      name: "Contact",
-      link: "/contact",
-    },
-    {
-      name: "Services",
-      link: "/services",
-    },
-  ];
+  const session = useSession();
+  console.log(session);
 
   return (
     <div className=" container mx-auto mt-2">
@@ -74,13 +60,59 @@ const Navbar = () => {
           </div>
         </div>
         <div className="navbar-end space-x-5">
-          <button className="btn btn-primary btn-outline"><FaShoppingBag></FaShoppingBag></button>
-          <Link href={"/appoinment"}  className="hidden lg:block"><button className="btn btn-primary btn-outline w-24 lg:w-32">Appoinment</button></Link>
-          <Link href={"/login"}><button className="btn btn-primary w-24 lg:w-32">Login</button></Link>
+          <button className="btn btn-primary btn-outline">
+            <FaShoppingBag></FaShoppingBag>
+          </button>
+          <Link href={"/appoinment"} className="hidden lg:block">
+            <button className="btn btn-primary btn-outline w-24 lg:w-32">
+              Appoinment
+            </button>
+          </Link>
+          {!session?.data ? (
+            <Link href={"/login"}>
+              <button className="btn btn-primary w-24 lg:w-32">Login</button>
+            </Link>
+          ) : (
+            <div className="flex justify-center items-center gap-5">
+              <Image
+                src={session?.data?.user?.image}
+                height={100}
+                width={100}
+                className="rounded-full"
+                alt={session?.data?.user?.name}
+                unoptimized
+              ></Image>
+              <button
+                onClick={() => signOut(toast.success("logout successfully"))}
+                className="btn btn-primary w-24 lg:w-28"
+              >
+                Logout
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
 };
+
+const links = [
+  {
+    name: "Home",
+    link: "/",
+  },
+  {
+    name: "About",
+    link: "/about",
+  },
+  {
+    name: "Contact",
+    link: "/contact",
+  },
+  {
+    name: "Services",
+    link: "/services",
+  },
+];
 
 export default Navbar;

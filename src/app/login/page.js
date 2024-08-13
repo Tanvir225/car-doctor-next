@@ -4,19 +4,31 @@ import Link from "next/link";
 import React from "react";
 import { signIn } from "next-auth/react";
 import { FaFacebook, FaGoogle } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
-const loginPage = () => {
+const LoginPage = () => {
+  const router = useRouter()
   const handleSubmit = async (event) => {
     event.preventDefault();
     const email = event.target.email.value;
     const password = event.target.password.value;
 
-    const response = signIn("credentials", {
+    const response = await signIn("credentials", {
       email,
       password,
       redirect: false,
     });
     console.log(response);
+    if (response?.status===200) {
+      event.target.reset()
+      router.push('/')
+      toast.success('login successfully!')
+     
+    }
+    if (response?.status=== 401 || response?.status===403) {
+      toast.error("incorrect email or password!")
+    }
   };
 
   return (
@@ -69,4 +81,4 @@ const loginPage = () => {
   );
 };
 
-export default loginPage;
+export default LoginPage;
