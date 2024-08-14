@@ -3,9 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { signIn } from "next-auth/react";
-import { FaFacebook, FaGoogle } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import SocialSignIn from "../Component/Shared/SocialSignIn";
 
 const LoginPage = () => {
   const router = useRouter()
@@ -62,12 +62,7 @@ const LoginPage = () => {
             </button>
           </form>
           <div className="text-center space-y-3 my-5 space-x-5">
-            <p className="btn btn-primary">
-              <FaFacebook></FaFacebook>
-            </p>
-            <p className="btn btn-primary">
-              <FaGoogle></FaGoogle>
-            </p>
+            <SocialSignIn></SocialSignIn>
             <p>
               dont have any account{" "}
               <Link href={"/signup"} className="text-primary font-bold">

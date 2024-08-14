@@ -7,7 +7,7 @@ import { FaShoppingBag } from "react-icons/fa";
 
 const Navbar = () => {
   const session = useSession();
-  console.log(session);
+  // console.log(session);
 
   return (
     <div className=" container mx-auto mt-2">
@@ -76,8 +76,8 @@ const Navbar = () => {
             <div className="flex justify-center items-center gap-5">
               <Image
                 src={session?.data?.user?.image}
-                height={100}
-                width={100}
+                height={60}
+                width={60}
                 className="rounded-full"
                 alt={session?.data?.user?.name}
                 unoptimized
