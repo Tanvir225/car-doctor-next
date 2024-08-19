@@ -1,9 +1,10 @@
 
 import Image from "next/image";
+import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa";
 
 const ServiceCard = ({service}) => {
-    const {title,img,price} = service || {}
+    const {title,img,price,_id} = service || {}
     // console.log(img);
   return (
     <div>
@@ -16,7 +17,7 @@ const ServiceCard = ({service}) => {
           <h2 className="card-title">{title}</h2>
           <p>{price}</p>
           <div className="card-actions justify-end">
-            <button className="btn btn-primary"><FaArrowRight></FaArrowRight></button>
+            <Link href={`/services/${_id}`} className="btn btn-primary"><FaArrowRight></FaArrowRight></Link>
           </div>
         </div>
       </div>

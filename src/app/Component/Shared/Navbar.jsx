@@ -4,13 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { FaShoppingBag } from "react-icons/fa";
+import LoginSkeleton from "../Skeleton/LoginSkeleton";
 
 const Navbar = () => {
   const session = useSession();
   // console.log(session);
 
   return (
-    <div className=" container mx-auto mt-2">
+    <div className=" container mx-auto mt-2 border-b-2">
       <div className="navbar w-full">
         <div className="navbar-start">
           <div className="dropdown">
@@ -60,7 +61,7 @@ const Navbar = () => {
           </div>
         </div>
         <div className="navbar-end space-x-5">
-          <button className="btn btn-primary btn-outline">
+          <button className="btn btn-primary btn-outline hidden lg:block">
             <FaShoppingBag></FaShoppingBag>
           </button>
           <Link href={"/appoinment"} className="hidden lg:block">
@@ -68,28 +69,41 @@ const Navbar = () => {
               Appoinment
             </button>
           </Link>
-          {!session?.data ? (
-            <Link href={"/login"}>
-              <button className="btn btn-primary w-24 lg:w-32">Login</button>
-            </Link>
-          ) : (
-            <div className="flex justify-center items-center gap-5">
-              <Image
-                src={session?.data?.user?.image}
-                height={60}
-                width={60}
-                className="rounded-full"
-                alt={session?.data?.user?.name}
-                unoptimized
-              ></Image>
-              <button
-                onClick={() => signOut(toast.success("logout successfully"))}
-                className="btn btn-primary w-24 lg:w-28"
-              >
-                Logout
-              </button>
-            </div>
-          )}
+
+          <div>
+            {session.status === "loading" ? (
+              <LoginSkeleton></LoginSkeleton>
+            ) : (
+              <>
+                {!session?.data ? (
+                  <Link href={"/login"}>
+                    <button className="btn btn-primary w-24 lg:w-32">
+                      Login
+                    </button>
+                  </Link>
+                ) : (
+                  <div className="flex justify-center items-center gap-5">
+                    <Image
+                      src={session?.data?.user?.image}
+                      height={60}
+                      width={60}
+                      className="rounded-full"
+                      alt={session?.data?.user?.name}
+                      unoptimized
+                    ></Image>
+                    <button
+                      onClick={() =>
+                        signOut(toast.success("logout successfully"))
+                      }
+                      className="btn btn-primary  lg:w-28"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>

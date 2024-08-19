@@ -15,7 +15,9 @@ const SocialSignIn = () => {
     });
   };
 
- 
+ if(session?.status==='authenticated') {
+    router.push('/')
+ }
 
   return (
     <div className="space-x-5">
