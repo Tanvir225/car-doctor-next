@@ -1,4 +1,4 @@
-const Banner = ({title}) => {
+const Banner = ({title,text}) => {
   return (
     <div
       className="h-80 rounded-lg bg-cover bg-bottom relative"
@@ -7,7 +7,7 @@ const Banner = ({title}) => {
       }}
     >
       <div className="absolute bottom-5 w-full">
-        <h1 className="text-xl  font-bold text-center text-white">Service Details : {title}</h1>
+        <h1 className="text-xl  font-bold text-center text-white">{text} : {title}</h1>
       </div>
     </div>
   );
