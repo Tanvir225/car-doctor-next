@@ -1,9 +1,12 @@
 import Heading from "../Shared/Heading";
-import {services} from "@/lib/services"
 import ServiceCard from "../Card/ServiceCard";
 import LinkButton from "../Shared/LinkButton";
+import getServices from "@/api/getServices";
 
-const Service = () => {
+
+
+const Service = async() => {
+  const services = await getServices()
   const content = {
     title: "Services",
     heading: "Our Services",

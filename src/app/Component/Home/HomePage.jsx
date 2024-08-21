@@ -3,6 +3,7 @@ import Service from "./Service";
 
 
 const HomePage = () => {
+    
     return (
         <div>
             <Banner></Banner>
