@@ -127,6 +127,10 @@ const links = [
     name: "Services",
     link: "/services",
   },
+  {
+    name: "My booking",
+    link: "/bookings",
+  },
 ];
 
 export default Navbar;

@@ -1,19 +1,21 @@
 "use client";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import React from "react";
 import toast from "react-hot-toast";
 
 const Form = ({ serviceName, img, price, serviceId }) => {
   const session = useSession();
-  const { name, email } = session?.data?.user || {};
+  const router = useRouter()
+  const { name, email,image } = session?.data?.user || {};
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const newBooking = {
       name: name,
       email: email,
+      image: image,
       serviceName: serviceName,
-      img: img,
       price: price,
       serviceId: serviceId,
       phone: event.target.phone.value,
@@ -30,6 +32,7 @@ const Form = ({ serviceName, img, price, serviceId }) => {
       body: JSON.stringify(newBooking),
     });
     if (response.status === 200) {
+      router.push("/bookings")
       event.target.reset();
       toast.success("Checkout Successful");
     }

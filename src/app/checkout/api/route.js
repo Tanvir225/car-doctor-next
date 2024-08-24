@@ -5,7 +5,7 @@ export const POST = async (req) => {
 //   console.log(newBooking);
   try {
     const db = await connectDB();
-    const newBookingCollections = await db.collection("myservices");
+    const newBookingCollections = await db.collection("bookings");
     const result = await newBookingCollections.insertOne(newBooking);
     return Response.json({ message: "new booking added" }, { status: 200 });
   } catch (error) {
