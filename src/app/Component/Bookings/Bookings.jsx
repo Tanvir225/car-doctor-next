@@ -10,13 +10,16 @@ import swal from 'sweetalert';
 const Bookings = () => {
   const session = useSession();
   const [bookings, setBookings] = useState([]);
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const { email } = session?.data?.user || {};
+  console.log(email)
   const myBookings = async () => {
-    const booking = await getBookings(email);
-    // console.log(booking);
-    setBookings(booking);
-    // setLoading(false);
+    if (email) {
+      const booking = await getBookings(email);
+      // console.log(booking);
+      setBookings(booking);
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -26,13 +29,7 @@ const Bookings = () => {
 
   //deleteBooking function
   const deleteBooking = async (id) => {
-    // const result = await fetch(`http://localhost:3000/bookings/api/${id}`,{
-    //   method:'DELETE'
-    // })
-    // const deleteResult = await result.json()
-    // if(deleteResult?.deletedCount===1){
 
-    // }
     swal({
       title: "Are you sure?",
       text: "Once deleted, you will not be able to recover!",
