@@ -12,6 +12,7 @@ import { Modal } from "./Modal";
 const Bookings = () => {
   const session = useSession();
   const [bookings, setBookings] = useState([]);
+  const [details,setDetails] = useState(null)
   const [loading, setLoading] = useState(true);
   const { email } = session?.data?.user || {};
   // console.log(email);
@@ -52,6 +53,17 @@ const Bookings = () => {
       }
     });
   };
+
+  //handleModal function
+  const handleModal = async(id)=>{
+    setOpenModal(true);
+    if (id) {
+      const result = await fetch(`http://localhost:3000/bookings/api/${id}`)
+      const singleBookingDetails = await result.json()
+      setDetails(singleBookingDetails)
+    }
+
+  }
   return (
     <div>
       <Banner text="My Booking" title={bookings.length}></Banner>
@@ -75,7 +87,10 @@ const Bookings = () => {
                 <td>{price} $ </td>
                 <td>{date}</td>
                 <td>
-                  <button onClick={()=>setOpenModal(true)} className="btn btn-outline btn-primary btn-sm">
+                  <button
+                    onClick={() => handleModal(_id)}
+                    className="btn btn-outline btn-primary btn-sm"
+                  >
                     Details
                   </button>
                 </td>
@@ -100,7 +115,7 @@ const Bookings = () => {
         </table>
       </div>
 
-      <Modal openModal={openModal} setOpenModal={setOpenModal}></Modal>
+      <Modal openModal={openModal} setOpenModal={setOpenModal} details={details}></Modal>
     </div>
   );
 };
