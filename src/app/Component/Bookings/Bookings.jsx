@@ -7,13 +7,15 @@ import toast from "react-hot-toast";
 // import BookingSkeleton from "../Skeleton/BookingSkeleton";
 import swal from "sweetalert";
 import Link from "next/link";
+import { Modal } from "./Modal";
 
 const Bookings = () => {
   const session = useSession();
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const { email } = session?.data?.user || {};
-  console.log(email);
+  // console.log(email);
+  const [openModal, setOpenModal] = useState(false);
   const myBookings = async () => {
     if (email) {
       const booking = await getBookings(email);
@@ -61,6 +63,7 @@ const Bookings = () => {
               <th>Title</th>
               <th>Price</th>
               <th>Date</th>
+              <th>Details</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -71,8 +74,18 @@ const Bookings = () => {
                 <td>{serviceName}</td>
                 <td>{price} $ </td>
                 <td>{date}</td>
+                <td>
+                  <button onClick={()=>setOpenModal(true)} className="btn btn-outline btn-primary btn-sm">
+                    Details
+                  </button>
+                </td>
                 <td className="space-x-5">
-                  <Link href={`/bookings/${_id}`} className="btn btn-sm btn-secondary">update</Link>
+                  <Link
+                    href={`/bookings/${_id}`}
+                    className="btn btn-sm btn-secondary"
+                  >
+                    update
+                  </Link>
                   <button
                     onClick={() => deleteBooking(_id)}
                     on
@@ -86,6 +99,8 @@ const Bookings = () => {
           </tbody>
         </table>
       </div>
+
+      <Modal openModal={openModal} setOpenModal={setOpenModal}></Modal>
     </div>
   );
 };
