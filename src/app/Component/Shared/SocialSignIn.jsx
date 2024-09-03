@@ -1,23 +1,24 @@
 "use client";
 import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { FaFacebook, FaGoogle } from "react-icons/fa";
 
 const SocialSignIn = () => {
-  const router = useRouter();
+  // const router = useRouter();
   const session = useSession();
+  const searchParams = useSearchParams()
+  const path = searchParams.get('redirect')
   console.log(session);
   const handelMedia = async (provider) => {
     // console.log(provider);
     const response = await signIn(provider, {
-      redirect: false,
+      redirect: true,
+      callbackUrl: path ? path : "/"
     });
   };
 
- if(session?.status==='authenticated') {
-    router.push('/')
- }
+ 
 
   return (
     <div className="space-x-5">

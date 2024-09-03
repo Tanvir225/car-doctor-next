@@ -3,12 +3,15 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import SocialSignIn from "../Component/Shared/SocialSignIn";
 
 const LoginPage = () => {
-  const router = useRouter()
+  // const router = useRouter();
+  const searchParams = useSearchParams();
+  const path = searchParams.get("redirect");
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const email = event.target.email.value;
@@ -17,17 +20,17 @@ const LoginPage = () => {
     const response = await signIn("credentials", {
       email,
       password,
-      redirect: false,
+      redirect: true,
+      callbackUrl: path ? path : "/"
     });
     console.log(response);
-    if (response?.status===200) {
-      event.target.reset()
-      router.push('/')
-      toast.success('login successfully!')
-     
+    if (response?.status === 200) {
+      event.target.reset();
+      // router.push("/");
+      toast.success("login successfully!");
     }
-    if (response?.status=== 401 || response?.status===403) {
-      toast.error("incorrect email or password!")
+    if (response?.status === 401 || response?.status === 403) {
+      toast.error("incorrect email or password!");
     }
   };
 

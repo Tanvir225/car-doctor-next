@@ -94,7 +94,7 @@ const Bookings = () => {
                     Details
                   </button>
                 </td>
-                <td className="space-x-5">
+                <td className="space-x-5 text-center">
                   <Link
                     href={`/bookings/${_id}`}
                     className="btn btn-sm btn-secondary"
@@ -104,7 +104,7 @@ const Bookings = () => {
                   <button
                     onClick={() => deleteBooking(_id)}
                     on
-                    className="btn btn-sm bg-red-700 hover:bg-red-500 text-white"
+                    className="btn btn-sm  bg-red-700 hover:bg-red-500 text-white"
                   >
                     delete
                   </button>
